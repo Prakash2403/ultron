@@ -4,8 +4,12 @@
 
 Personal Assistant
 
-Install all requirements in requirements.txt.
+## Install requirements 
+  
+    cd ultron
+    sudo -H pip install -r requirements.txt
+    sudo apt-get install mpg321
 
-gTTS requires internet connectivity, so please connect to Internet before running the application.
-
-For testing voice fearure, go to `tests` folder and run `python3 voice_test.py'.
+## For testing
+    cd ultron/tests
+    python3 voice_test.py
