@@ -4,6 +4,8 @@
 
 Personal Assistant
 
-Install all requirements in requirements.txt and then run `python3 run_ultron.py`
+Install all requirements in requirements.txt.
 
 gTTS requires internet connectivity, so please connect to Internet before running the application.
+
+For testing voice fearure, go to `tests` folder and run `python3 voice_test.py'.
