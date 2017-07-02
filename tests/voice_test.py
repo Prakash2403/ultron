@@ -1,4 +1,4 @@
-from ultron.ultron.actions.voice import Voice
+from ultron.actions.voice import Voice
 
 
 if __name__ == '__main__':

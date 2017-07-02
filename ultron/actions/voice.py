@@ -1,4 +1,4 @@
-from ultron.ultron.actions import Action
+from ultron.actions import Action
 from gtts import gTTS
 import os
 
