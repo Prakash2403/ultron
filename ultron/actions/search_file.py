@@ -12,7 +12,7 @@ class Search(Action):
 
         def match(self, file):
             """
-            Function to check match for file. 
+            Function to check match for file.
             :return: True if matched else False.
             """
             return fnmatch(self.file, file)
@@ -63,12 +63,10 @@ class Search(Action):
         This will print out all the found items.
         :return: No returns.
         """
-        print('The matches for your file are:')
         if not self.matched_files:
             print('Sorry No matches')
         else:
+            print('The matches for your file are:')
             for i in range(len(self.matched_files)):
                 print(str(i+1), '\b.', self.matched_files[i], 'at:')
                 print('\t', self.matched_paths[i])
-
-
