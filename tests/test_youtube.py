@@ -88,7 +88,8 @@ class YoutubeTest(unittest.TestCase):
         # Test case 5
         download_video = DownloadVideo(query='1 second Video',
                                        filename='1SV.mp4',
-                                       storage_directory=os.path.expanduser('~')
+                                       storage_directory=os.path.expanduser(
+                                           '~')
                                        + "/This path doesn't exists yet")
         try:
             download_video.pre_execute(test=True)
