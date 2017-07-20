@@ -19,7 +19,7 @@ class DownloadVideo(Action):
     """
 
     def __init__(self, query, filename=None,
-                 storage_directory='/home/prakash/Downloads'):
+                 storage_directory=os.path.expanduser('~/Downloads')):
         """
         :param query: Search query.
         :param filename: Filename in which video will be saved.
