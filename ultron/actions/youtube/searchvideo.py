@@ -10,6 +10,7 @@ class SearchVideo(Action):
 
     See execute method documentation for more details.
     """
+
     def __init__(self, query):
         """
 
