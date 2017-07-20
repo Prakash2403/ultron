@@ -14,11 +14,14 @@ Personal Assistant
     cd ultron/tests
     For voice module: python3 voice_test.py
     For twitter tests: python3 -m unittest test_twitter.py
+    For youtube tests: python3 -m unittest test_youtube.py
     
-## Twitter Instructions
+## Twitter
+
+### Twitter Instructions
 Twitter requires four keys for authentication. They are **CONSUMER_KEY**, **CONSUMER_SECRET**, **ACCESS_TOKEN**, **ACCESS_TOKEN_SECRET**.
 
-### How to get them
+#### How to get them
 
 Visit [here](https://apps.twitter.com/) and follow the steps given bellow.
 
@@ -35,3 +38,9 @@ Visit [here](https://apps.twitter.com/) and follow the steps given bellow.
     9. Put them in a file twitter_keys in ultron/ultron/api_keys/ folder.
     10. While putting the keys, please follow the order mentioned in README.md 
         in ultrom/ultron/api_keys folder.
+
+Refer to `actions` README for more information        
+
+## Youtube
+
+No special tokens are required. Refer to `actions` README for more information.

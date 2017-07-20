@@ -1,10 +1,10 @@
 import os
 import unittest
 
-import shutil
 
 from ultron.actions.youtube.downloadvideo import DownloadVideo
 from ultron.actions.youtube.searchvideo import SearchVideo
+from ultron.exception import NotAbsolutePathException
 
 
 class YoutubeTest(unittest.TestCase):
@@ -25,11 +25,12 @@ class YoutubeTest(unittest.TestCase):
             download_video.pre_execute(test=True)
             download_video.execute()
             download_video.post_execute()
-        except shutil.Error:
-            print('File with filename ' + download_video.filename
-                  + ' already exists in destination directory')
-        except FileNotFoundError:
-            print("Destination directory doesn't exists")
+        except FileExistsError as fee:
+            print(str(fee))
+        except PermissionError as pe:
+            print(str(pe))
+        except NotAbsolutePathException as nape:
+            print(str(nape))
         self.assertEqual(download_video.download_status, True)
 
         # Test case 2
@@ -39,14 +40,19 @@ class YoutubeTest(unittest.TestCase):
             download_video.pre_execute(test=True)
             download_video.execute()
             download_video.post_execute()
-        except shutil.Error:
-            print('File with filename ' + download_video.filename
-                  + ' already exists in destination directory')
-        except FileNotFoundError:
-            print("Destination directory doesn't exists")
+        except FileExistsError as fee:
+            print(str(fee))
+        except PermissionError as pe:
+            print(str(pe))
+        except NotAbsolutePathException as nape:
+            print(str(nape))
         self.assertEqual(download_video.download_status, True)
 
         # Test case 3
+        # If you are going to change storage_directory,
+        # make sure that you have changed it in print
+        # statement where we are handling shutil.Error.
+
         download_video = DownloadVideo(query='1 second Video',
                                        filename='1sv.mp4',
                                        storage_directory=os.path.expanduser('~'))
@@ -54,11 +60,12 @@ class YoutubeTest(unittest.TestCase):
             download_video.pre_execute(test=True)
             download_video.execute()
             download_video.post_execute()
-        except shutil.Error:
-            print('File with filename ' + download_video.filename
-                  + ' already exists in destination directory')
-        except FileNotFoundError:
-            print("Destination directory doesn't exists")
+        except FileExistsError as fee:
+            print(str(fee))
+        except PermissionError as pe:
+            print(str(pe))
+        except NotAbsolutePathException as nape:
+            print(str(nape))
         self.assertEqual(download_video.download_status, True)
 
         # Test case 4
@@ -70,9 +77,27 @@ class YoutubeTest(unittest.TestCase):
             download_video.pre_execute(test=True)
             download_video.execute()
             download_video.post_execute()
-        except shutil.Error:
-            print('File with filename ' + download_video.filename
-                  + ' already exists in destination directory')
-        except FileNotFoundError:
-            print("Destination directory doesn't exists")
+        except FileExistsError as fee:
+            print(str(fee))
+        except PermissionError as pe:
+            print(str(pe))
+        except NotAbsolutePathException as nape:
+            print(str(nape))
         self.assertEqual(download_video.download_status, False)
+
+        # Test case 5
+        download_video = DownloadVideo(query='1 second Video',
+                                       filename='1SV.mp4',
+                                       storage_directory="/home/prakash/This path "
+                                                         "doesn't exists yet")
+        try:
+            download_video.pre_execute(test=True)
+            download_video.execute()
+            download_video.post_execute()
+        except FileExistsError as fee:
+            print(str(fee))
+        except PermissionError as pe:
+            print(str(pe))
+        except NotAbsolutePathException as nape:
+            print(str(nape))
+        self.assertEqual(download_video.download_status, True)

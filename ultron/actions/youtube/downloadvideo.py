@@ -5,19 +5,21 @@ from ultron.actions import Action
 import youtube_dl
 
 from ultron.actions.youtube.searchvideo import SearchVideo
+from ultron.exception import NotAbsolutePathException, UnknownException
 
 
 class DownloadVideo(Action):
     """
-    post_execute method raises 2 errors, so if you are going
-    to use this class anywhere, make sure that the errors are
-    handled properly.
+    post_execute method raises some errors and exceptions,
+    so if you are going to use this class anywhere, make
+    sure that they are handled properly.
 
     For more information on error, look the documentation of
     post_execute method
     """
 
-    def __init__(self, query, filename=None, storage_directory=None):
+    def __init__(self, query, filename=None,
+                 storage_directory='/home/prakash/Downloads'):
         """
         :param query: Search query.
         :param filename: Filename in which video will be saved.
@@ -77,27 +79,44 @@ class DownloadVideo(Action):
         user. If no storage directory is provided, youtube-dl stores
         the video from where script has been executed.
 
-        Raises two errors:
-        1. shutil.Error : This error is raised when a file with same name exists
-        in directory pointed by user.
-        2. FileNotFoundError: This error is raised when directory given by user
-        is incorrect.
+        Raises following errors and exceptions:
+        1. UnknownException: This exception is raised when everything went smoothly,
+        but suddenly your python interpreter decides to f**k you.
+        2. PermissionError : This is raised when user doesn't have permission to
+        create/store the file in destination directory.
+        3. FileExistsError: This error is raised when a file with same name as source
+        file exists in destination folder.
+        4. NotAbsolutePathException: This exception is raised when address of
+        destination directory is not an absolute address
 
-        In both case, video is saved in default directory, i.e. the directory from
-        where the script is being executed.
+        If due to any reason, video is not copied to destination directory, then
+        it will be stored in the directory from where script has been executed.
         """
-        if self.storage_directory is not None:
-            if os.path.exists(self.storage_directory):
-                curr_path = os.getcwd() + '/' \
-                            + self.options['outtmpl']
-                if os.path.exists(self.storage_directory + '/' + self.options['outtmpl']):
-                    self.download_status = False
-                    raise shutil.Error
-                else:
-                    if os.path.exists(curr_path):
-                        shutil.move(curr_path, self.storage_directory)
-                    else:
-                        self.download_status = False
+        if not os.path.abspath(self.storage_directory):
+            self.download_status = False
+            raise NotAbsolutePathException('Destination is not an absolute path.')
+        if not os.path.exists(self.storage_directory):
+            if os.access(os.path.dirname(self.storage_directory), mode=os.W_OK):
+                os.makedirs(self.storage_directory)
             else:
                 self.download_status = False
-                raise FileNotFoundError
+                raise PermissionError('You are not allowed to create'
+                                      ' a directory at ' +
+                                      os.path.dirname(self.storage_directory) +
+                                      ' .Storing video in current directory.')
+        curr_path = os.getcwd() + '/' + self.options['outtmpl']
+        if os.path.exists(self.storage_directory + '/' + self.options['outtmpl']):
+            self.download_status = False
+            raise FileExistsError('File already exists at storage directory.')
+        else:
+            if os.path.exists(curr_path):
+                if os.access(self.storage_directory, os.W_OK):
+                    shutil.move(curr_path, self.storage_directory)
+                else:
+                    self.download_status = False
+                    raise PermissionError('You are not allowed to access. ' +
+                                          self.storage_directory +
+                                          '. Storing video in current directory.')
+            else:
+                self.download_status = False
+                raise UnknownException('Your interpreter is drunk. Please retry')
