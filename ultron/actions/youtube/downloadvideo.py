@@ -94,7 +94,8 @@ class DownloadVideo(Action):
         """
         if not os.path.abspath(self.storage_directory):
             self.download_status = False
-            raise NotAbsolutePathException('Destination is not an absolute path.')
+            raise NotAbsolutePathException(
+                'Destination is not an absolute path.')
         if not os.path.exists(self.storage_directory):
             if os.access(os.path.dirname(self.storage_directory), mode=os.W_OK):
                 os.makedirs(self.storage_directory)
@@ -119,4 +120,5 @@ class DownloadVideo(Action):
                                           '. Storing video in current directory.')
             else:
                 self.download_status = False
-                raise UnknownException('Your interpreter is drunk. Please retry')
+                raise UnknownException(
+                    'Your interpreter is drunk. Please retry')
