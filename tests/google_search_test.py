@@ -1,6 +1,6 @@
 from ultron.actions.google_search import GoogleSearch
 
-if __name__== '__main__':
+if __name__ == '__main__':
     googleSearch = GoogleSearch('Kamaal Rashid Khan')
 
     googleSearch.pre_execute()
