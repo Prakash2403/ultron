@@ -15,7 +15,7 @@ class GoogleSearch(Action):
     def execute(self, *args, **kwargs):
 
         url = 'http://www.google.co.in/search?q='\
-              +self.search_query.replace(' ', '+')
+              + self.search_query.replace(' ', '+')
 
         res = requests.get(url)
         web_data = BeautifulSoup(res.text, "lxml")
