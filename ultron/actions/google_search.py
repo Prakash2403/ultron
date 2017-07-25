@@ -14,8 +14,8 @@ class GoogleSearch(Action):
 
     def execute(self, *args, **kwargs):
 
-        url = 'http://www.google.co.in/search?q='+
-        self.search_query.replace(' ', '+')
+        url = 'http://www.google.co.in/search?q='\
+              +self.search_query.replace(' ', '+')
 
         res = requests.get(url)
         web_data = BeautifulSoup(res.text, "lxml")
@@ -28,7 +28,8 @@ class GoogleSearch(Action):
 
             if(len(link) > 0):
                 self.names.append(each_tag.text)
-                self.links.append(link[0].get('href').replace('/url?q=', ''))
+                self.links.append(link[0].get('href')
+                                  .replace('/url?q=', ''))
         pass
 
     def post_execute(self):
