@@ -6,7 +6,7 @@ class NotAbsolutePathException(Exception):
     pass
 
 # UnknownException: This exception is raised when everything went smoothly,
-# but your python interpreter decides to f**k you anyways.
+# but your python interpreter decides to screw you anyways.
 
 
 class UnknownException(Exception):
