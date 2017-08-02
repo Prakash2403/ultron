@@ -12,7 +12,6 @@ class GoogleSearch(Action):
         pass
 
     def execute(self, *args, **kwargs):
-
         """
         Here all the Links and the Names, that are available on the first page of Google Search,
         of a given query are displayed.
