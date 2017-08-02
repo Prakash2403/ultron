@@ -20,8 +20,20 @@ Handles twitter operations. It has following features:
        12. Sets values that users are able to set under the “Account” tab of their settings page.
        13. Block a user.
        14. Search tweets based on keywords. 
+
+## youtube.py
+
+Handles youtube operations. Currently, it has following features
+
+        1. Search videos.
+        2. Download videos in highest quality available for that video.
        
 ## google_search.py
     1. Scrapes through the first page of Google Search for a given search query and displays all the links of that page.
     2. It also asks the user to select which link to open
     3. The link is then opened in a new tab of the default web browser
+
+#### Todos
+        1. Video to audio conversion.
+        2. Allow user to select quality.
+        3. Get meta information without downloading the video.
