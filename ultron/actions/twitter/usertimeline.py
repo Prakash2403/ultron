@@ -1,32 +1,30 @@
 from tweepy import TweepError
+
 from ultron.actions import Action
+from ultron.exception.twitterexceptions import InvalidUserException
 from ultron.helpers.twitter_helper import load_api
 
 
 class UserTimeLineTweets(Action):
-    def __init__(self):
+    def __init__(self, screen_name):
         self.api = load_api()
         self.user_timeline_tweets_status = True
         self.timeline_tweets = None
+        self.screen_name = screen_name
 
-    def pre_execute(self, *args, **kwargs):
+    def pre_execute(self):
         pass
 
-    def execute(self, *args, **kwargs):
+    def execute(self):
         """
-            Retrieves latest 20 tweets from given user's timeline.
-            :param args: Currently, no use.
-            :param kwargs: keyword arguments, only 'screen_name'
-            is accepted, where 'screen_name' is screen
-            name of target user.
-            :return: None
+        Retrieves latest 20 tweets from given user's timeline.
         """
         try:
             self.timeline_tweets = self.api.user_timeline(
-                kwargs['screen_name'])
-        except TweepError as user_timeline_error:
-            print(user_timeline_error)
-            self.user_timeline_tweets_status = False
+                self.screen_name)
+        except TweepError:
+            raise InvalidUserException
+        self.user_timeline_tweets_status = True
 
     def post_execute(self, *args, **kwargs):
         if self.user_timeline_tweets_status:

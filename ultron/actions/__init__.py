@@ -18,3 +18,8 @@ class Action(ABC):
     @abstractmethod
     def pre_execute(self, *args, **kwargs):
         return
+
+    def run(self):
+        self.pre_execute()
+        self.execute()
+        self.post_execute()

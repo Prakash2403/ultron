@@ -24,38 +24,38 @@ class TwitterTest(unittest.TestCase):
         self.assertEqual(obj.home_timeline_status, True)
 
     def test_follow(self):
-        obj = FollowUser()
-        obj.execute(screen_name='kamaalrkhan')
+        obj = FollowUser(screen_name='kamaalrkhan')
+        obj.execute()
         self.assertEqual(obj.follow_status, True)
 
     def test_unfollow(self):
-        obj = UnfollowUser()
-        obj.execute(screen_name='kamaalrkhan')
+        obj = UnfollowUser(screen_name='kamaalrkhan')
+        obj.execute()
         self.assertEqual(obj.unfollow_status, True)
 
     def test_block_user(self):
-        obj = BlockUser()
-        obj.execute(screen_name='kamaalrkhan')
+        obj = BlockUser(screen_name='kamaalrkhan')
+        obj.execute()
         self.assertEqual(obj.block_status, True)
 
     def test_update_profile_image(self):
-        obj = UpdateProfileImage()
         filename = os.path.join(os.path.expanduser('~'), 'Documents/SJ.jpg')
-        obj.execute(filename=filename)
+        obj = UpdateProfileImage(filename=filename)
+        obj.execute()
         if os.path.exists(filename):
             self.assertEqual(obj.update_profile_status, True)
         else:
             self.assertEqual(obj.update_profile_status, False)
 
     def test_update_profile(self):
-        obj = UpdateProfile()
-        obj.execute(name='Prakash Rai')
+        obj = UpdateProfile(profile_data={'name':'Prakash Rai'})
+        obj.execute()
         self.assertEqual(obj.update_profile_status, True)
 
     def test_send_message(self):
-        obj = SendMessage()
-        obj.execute(screen_name='ultronhasaccount',
+        obj = SendMessage(screen_name='@FirebaseUltron',
                     text='Ultron sent a message to you')
+        obj.execute()
         self.assertEqual(obj.send_message_status, True)
 
     def test_retrieve_message(self):
@@ -64,21 +64,21 @@ class TwitterTest(unittest.TestCase):
         self.assertEqual(obj.retrieve_message_status, True)
 
     def test_search_users(self):
-        obj = SearchUsers()
-        obj.execute(query='Python')
+        obj = SearchUsers(query='Python')
+        obj.execute()
         self.assertEqual(obj.search_user_status, True)
 
     def test_fetch_details(self):
-        obj = FetchDetails()
-        obj.execute(screen_name='ultronhasaccount')
+        obj = FetchDetails(screen_name='@FirebaseUltron')
+        obj.execute()
         self.assertEqual(obj.fetch_details_status, True)
 
     def test_status_update(self):
-        obj = StatusUpdate()
-        obj.execute(text='Ultron is being tested again')
+        obj = StatusUpdate(text='Ultron is being tested again in current configuration')
+        obj.execute()
         self.assertEqual(obj.status_update_status, True)
 
     def test_user_timeline(self):
-        obj = UserTimeLineTweets()
-        obj.execute(screen_name='ultronhasaccount')
+        obj = UserTimeLineTweets(screen_name='@FirebaseUltron')
+        obj.execute()
         self.assertEqual(obj.user_timeline_tweets_status, True)

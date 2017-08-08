@@ -17,8 +17,9 @@ class SearchVideo(Action):
         :param query: query to be searched.
         """
         self.search_results = []
+
         self.query = query
-        self.search_status = True
+        self.search_status = False
 
     def pre_execute(self, *args, **kwargs):
         pass
@@ -32,12 +33,10 @@ class SearchVideo(Action):
         network connection
 
         """
-        self.search_status = False
         url = "https://www.youtube.com/results?search_query=" + self.query
         try:
             response = requests.get(url)
         except Exception as e:
-            self.search_status = False
             raise e
         html = response.text
         soup = BeautifulSoup(html, "lxml")
@@ -50,7 +49,6 @@ class SearchVideo(Action):
 
     def get_search_results(self):
         """
-
-        :return: list of search results.
+        :return: list of search results objects.
         """
         return self.search_results

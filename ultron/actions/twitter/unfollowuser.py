@@ -1,31 +1,29 @@
 from tweepy import TweepError
+
 from ultron.actions import Action
+from ultron.exception.twitterexceptions import InvalidUserException
 from ultron.helpers.twitter_helper import load_api
 
 
 class UnfollowUser(Action):
-    def __init__(self):
+    def __init__(self, screen_name):
         self.api = load_api()
-        self.unfollow_status = True
+        self.unfollow_status = False
+        self.screen_name = screen_name
 
     def pre_execute(self, *args, **kwargs):
         pass
 
-    def execute(self, *args, **kwargs):
+    def execute(self):
         """
         Un-follows a user.
-        :param args: Currently, no use.
-        :param kwargs: Keyword arguments, only 'screen_name'
-        is accepted, which indicated the screen name of user
-        to be un-followed.
-        :return: None
         """
         try:
-            self.api.destroy_friendship(screen_name=kwargs['screen_name'])
-        except TweepError as unfollow_exception:
-            print(unfollow_exception)
-            self.unfollow_status = False
+            self.api.destroy_friendship(screen_name=self.screen_name)
+        except TweepError:
+            raise InvalidUserException
+        self.unfollow_status = True
 
-    def post_execute(self, *args, **kwargs):
+    def post_execute(self):
         if self.unfollow_status:
-            print('You have unfollowed ' + kwargs['name'])
+            print('You have unfollowed ' + self.screen_name)
