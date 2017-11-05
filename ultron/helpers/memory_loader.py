@@ -10,6 +10,6 @@ class Default:
         if Default.memory_dict is None or force_load:
             memory_file = os.path.join(os.environ.get(
                 'ULTRON_PROJECT_DIR'), 'memory.json')
-            with open(memory_file,'r') as mem_file:
+            with open(memory_file, 'r') as mem_file:
                 Default.memory_dict = json.load(mem_file)
         return Default.memory_dict
