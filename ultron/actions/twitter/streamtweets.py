@@ -1,34 +1,27 @@
 import tweepy
-from tweepy import TweepError
 from ultron.actions import Action
 from ultron.helpers.twitter_helper import load_api
 
 
 class StreamTweets(Action, tweepy.StreamListener):
-    def __init__(self):
+    def __init__(self, keyword):
         super().__init__()
         self.api = load_api()
+        self.keyword = keyword
 
     @staticmethod
-    def on_status(status, **kwargs):
+    def on_status(status, **kwarg):
         print(status.text)
 
-    def pre_execute(self, *args, **kwargs):
+    def pre_execute(self):
         pass
 
-    def execute(self, *args, **kwargs):
+    def execute(self):
         """
         Tracks a given term in stream of tweets.
-        :param args: No use, currently.
-        :param kwargs: Keyword arguments. 'keyword'is only
-        accepted keyword, which indicates the search term.
-        :return: None
         """
-        try:
-            curr_stream = tweepy.Stream(auth=self.api.auth, listener=self)
-            curr_stream.filter(track=[kwargs['keyword']], async=True)
-        except TweepError as stream_error:
-            print(stream_error)
+        curr_stream = tweepy.Stream(auth=self.api.auth, listener=self)
+        curr_stream.filter(track=[self.keyword], async=True)
 
-    def post_execute(self, *args, **kwargs):
+    def post_execute(self):
         pass

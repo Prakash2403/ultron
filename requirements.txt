@@ -4,4 +4,5 @@ tweepy==3.5.0
 requests==2.18.1
 git+https://github.com/abenassi/Google-Search-API/
 youtube-dl
-bs4==4.6.0
+bs4
+requests==2.12.4

@@ -1,37 +1,35 @@
 from tweepy import TweepError
+
 from ultron.actions import Action
+from ultron.exception.twitterexceptions import InvalidUserException
 from ultron.helpers.twitter_helper import load_api
 
 
 class FetchDetails(Action):
-    def __init__(self):
+    def __init__(self, screen_name):
         self.api = load_api()
-        self.fetch_details_status = True
+        self.fetch_details_status = False
         self.details = None
+        self.screen_name = screen_name
 
-    def pre_execute(self, *args, **kwargs):
+    def pre_execute(self):
         pass
 
-    def execute(self, *args, **kwargs):
+    def execute(self):
         """
         Fetch details about given user.
-        :param args: Currently, no use.
-        :param kwargs: keyword arguments, only 'screen_name'
-        is accepted, where 'screen_name' is screen
-        name of target user.
-        :return: None
         """
         try:
-            self.details = self.api.get_user(screen_name=kwargs['screen_name'])
-        except TweepError as fetch_details_error:
-            print(fetch_details_error)
-            self.fetch_details_status = False
+            self.details = self.api.get_user(screen_name=self.screen_name)
+        except TweepError:
+            raise InvalidUserException
+        self.fetch_details_status = True
 
-    def post_execute(self, *args, **kwargs):
-        print('Name :' + self.details.name)
-        print('Descriptions :' + self.details.description)
+    def post_execute(self):
+        print('Name :' + str(self.details.name))
+        print('Descriptions :' + str(self.details.description))
         print("Followers :" + str(self.details.followers_count))
         print("Friends :" + str(self.details.friends_count))
-        print("URL :" + self.details.url)
-        print("ID string :" + self.details.id_str)
-        print("Screen name :" + self.details.screen_name)
+        print("URL :" + str(self.details.url))
+        print("ID string :" + str(self.details.id_str))
+        print("Screen name :" + str(self.details.screen_name))

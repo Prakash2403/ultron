@@ -20,7 +20,9 @@ class YoutubeTest(unittest.TestCase):
 
     def test_download_video(self):
         # Test case 1
-        download_video = DownloadVideo(query='1 second Video')
+        download_video = DownloadVideo(query='1 second Video',
+                                       filename=None,
+                                       storage_directory=None)
         try:
             download_video.pre_execute(test=True)
             download_video.execute()
@@ -35,7 +37,8 @@ class YoutubeTest(unittest.TestCase):
 
         # Test case 2
         download_video = DownloadVideo(query='1 second Video',
-                                       filename='onesecvid.mp4')
+                                       filename='onesecvid.mp4',
+                                       storage_directory=None)
         try:
             download_video.pre_execute(test=True)
             download_video.execute()
