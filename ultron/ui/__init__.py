@@ -7,6 +7,7 @@ class BaseInterpreter(cmd.Cmd):
     defines common function(s) which must be present in every
     interpreter.
     """
+
     def do_exit(self, *args):
         """
         Use to exit from current interpreter. Ctrl + D (EOF) can also

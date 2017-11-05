@@ -16,7 +16,6 @@ from ultron.actions.twitter.usertimeline import UserTimeLineTweets
 
 
 class TwitterTest(unittest.TestCase):
-
     def test_home_timeline(self):
         warnings.simplefilter("ignore")
         obj = HomeTimeLine()
@@ -48,13 +47,13 @@ class TwitterTest(unittest.TestCase):
             self.assertEqual(obj.update_profile_status, False)
 
     def test_update_profile(self):
-        obj = UpdateProfile(profile_data={'name':'Prakash Rai'})
+        obj = UpdateProfile(profile_data={'name': 'Prakash Rai'})
         obj.execute()
         self.assertEqual(obj.update_profile_status, True)
 
     def test_send_message(self):
         obj = SendMessage(screen_name='@FirebaseUltron',
-                    text='Ultron sent a message to you')
+                          text='Ultron sent a message to you')
         obj.execute()
         self.assertEqual(obj.send_message_status, True)
 
@@ -74,7 +73,8 @@ class TwitterTest(unittest.TestCase):
         self.assertEqual(obj.fetch_details_status, True)
 
     def test_status_update(self):
-        obj = StatusUpdate(text='Ultron is being tested again in current configuration')
+        obj = StatusUpdate(
+            text='Ultron is being tested again in current configuration')
         obj.execute()
         self.assertEqual(obj.status_update_status, True)
 

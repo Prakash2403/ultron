@@ -45,7 +45,8 @@ class Twitter(BaseInterpreter):
         Twitter.run(home_time_line)
 
     def do_block_user(self, *args):
-        screen_name = input("Enter the screen name of user you want to block\n")
+        screen_name = input(
+            "Enter the screen name of user you want to block\n")
         block_user = BlockUser(screen_name=screen_name)
         Twitter.run(block_user)
 
@@ -74,13 +75,15 @@ class Twitter(BaseInterpreter):
         name = input('Enter your name. Leave blank to use previous.\n')
         if len(name.strip()) != 0:
             profile_data['name'] = name.strip()
-        description = input('Enter new description. Leave blank to use previous.\n')
+        description = input(
+            'Enter new description. Leave blank to use previous.\n')
         if len(description.strip()) != 0:
             profile_data['description'] = description.strip()
         url = input('Enter url of your website. Leave blank to use previous.\n')
         if len(url.strip()) != 0:
             profile_data['url'] = url.strip()
-        location = input('Enter your current location. Leave blank to use previous.\n')
+        location = input(
+            'Enter your current location. Leave blank to use previous.\n')
         if len(location.strip()) != 0:
             profile_data['location'] = location.strip()
         update_profile = UpdateProfile(profile_data=profile_data)
@@ -97,7 +100,8 @@ class Twitter(BaseInterpreter):
         Twitter.run(unfollow_user)
 
     def do_send_message(self, *args):
-        screen_name = input('Enter screen name of user to whom you want to send message.\n')
+        screen_name = input(
+            'Enter screen name of user to whom you want to send message.\n')
         text = input('Enter message to be sent\n')
         send_message = SendMessage(screen_name=screen_name, text=text)
         Twitter.run(send_message)

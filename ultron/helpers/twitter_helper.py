@@ -27,9 +27,10 @@ class APIHandler:
             keys = [key.strip() for key in keys]
             if len(keys) != 4:
                 raise InvalidAPIException('Twitter requires 4 keys. But, '
-                                          + str(len(keys)) + ' are present. Please ensure '
-                                                             'that keys are placed in same order '
-                                                             'as mentioned in README')
+                                          + str(len(keys)) +
+                                          ' are present. Please ensure '
+                                          'that keys are placed in same order '
+                                          'as mentioned in README')
             else:
                 consumer_key = keys[0]
                 consumer_secret = keys[1]

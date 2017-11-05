@@ -16,7 +16,8 @@ class UpdateProfile(Action):
         Updates profile of authenticated user.
         """
         self.api.update_profile(name=self.profile_data.get('name', None),
-                                location=self.profile_data.get('location', None),
+                                location=self.profile_data.get(
+                                    'location', None),
                                 url=self.profile_data.get('url', None),
                                 description=self.profile_data.get('description', None))
         self.update_profile_status = True

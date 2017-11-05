@@ -16,7 +16,8 @@ class Youtube(BaseInterpreter):
         query = input("Enter search keyword\n")
         storage_directory = os.path.expanduser(input("Where do you want to save your file."
                                                      " Leave blank to save in ~/Downloads.\n"))
-        filename = input("Enter a custom file name. Leave blank to use auto-generated filename.\n")
+        filename = input(
+            "Enter a custom file name. Leave blank to use auto-generated filename.\n")
         if len(storage_directory.strip()) == 0:
             storage_directory = os.path.expanduser(
                 self.memory.get('VIDEO_STORAGE_DIRECTORY'))
