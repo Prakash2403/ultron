@@ -2,5 +2,5 @@ gTTS==1.1.8
 gTTS-token==1.1.1
 tweepy==3.5.0
 youtube-dl
-bs4==4.6.0
+bs4
 requests==2.12.4

@@ -1,5 +1,4 @@
 import tweepy
-from tweepy import TweepError
 from ultron.actions import Action
 from ultron.helpers.twitter_helper import load_api
 
